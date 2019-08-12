@@ -89,8 +89,9 @@ export default class Engine {
    * console.log(typeof engine)
    * // -> Engine
    */
-  constructor(filePath) {
-    this.filePath = path.normalize(filePath)
+  constructor(engineInstance) {
+    this.engineInstance = engineInstance
+    // this.filePath = path.normalize(filePath)
     this.id = {
       name: null,
       author: null,
@@ -199,7 +200,7 @@ export default class Engine {
   async init() {
     if (this.proc) throw new Error('cannot call "init()": already initialized')
     //set up spawn
-    this.proc = spawn(this.filePath)
+    this.proc = this.engineInstance
     this.proc.stdout.setEncoding('utf8')
     //log buffer from engine
     this.proc.stdout.on('data', fromEngineLog)
